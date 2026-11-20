@@ -1,34 +1,23 @@
 from django.shortcuts import render
 
+from .models import Author, Book
+
 
 def home(request):
+    context = {
+        "books_count": Book.objects.count(),
+        "authors_count": Author.objects.count(),
+    }
+
     return render(
         request,
         "biblioteka/home.html",
+        context,
     )
 
 
 def book_list(request):
-    books = [
-        {
-            "title": "Solaris",
-            "author": "Stanisław Lem",
-            "year": 1961,
-            "available": True,
-        },
-        {
-            "title": "Lalka",
-            "author": "Bolesław Prus",
-            "year": 1890,
-            "available": False,
-        },
-        {
-            "title": "Hobbit",
-            "author": "J.R.R. Tolkien",
-            "year": 1937,
-            "available": True,
-        },
-    ]
+    books = Book.objects.all()
 
     context = {
         "books": books,
@@ -42,9 +31,16 @@ def book_list(request):
 
 
 def author_list(request):
+    authors = Author.objects.all()
+
+    context = {
+        "authors": authors,
+    }
+
     return render(
         request,
         "biblioteka/author_list.html",
+        context,
     )
 
 
@@ -52,4 +48,11 @@ def contact(request):
     return render(
         request,
         "biblioteka/contact.html",
+    )
+
+
+def about(request):
+    return render(
+        request,
+        "biblioteka/about.html",
     )
