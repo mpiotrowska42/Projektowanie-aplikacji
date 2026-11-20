@@ -20,6 +20,15 @@
                         {{ author.first_name }}
                         {{ author.last_name }}
                     </h3>
+                    <p>
+                        Liczba książek:
+                        {{ author.books.count }}
+                    </p>
+                    <a class="button-link"
+                    href="{% url 'author_detail' author.id %}"
+                    >
+                    Szczegóły
+                    </a>
                 </article>
 
             {% empty %}
